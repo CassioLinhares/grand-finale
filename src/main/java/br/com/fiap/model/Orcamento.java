@@ -21,14 +21,14 @@ public class Orcamento {
     @Column(name = "id_orcamento")
     private Long idOrcamento;
 
+    @Column(name = "nome_orcamento")
+    private String nomeOrcamento;
+
     @Column(name = "tipo_orcamento")
     private String tipoOrcamento;
 
-    @Column(name = "valor_planejado")
-    private double valorPlanejado;
-
-    @Column(name = "valor_utilizado")
-    private double valorUtilizado;
+    @Column(name = "valor_orcamento")
+    private double valorOrcamento;
 
     @Column(name = "data_inicio")
     private LocalDate dataInicio;
@@ -42,20 +42,20 @@ public class Orcamento {
 
     public Orcamento() {}
 
-    public Orcamento(Long idOrcamento, String tipoOrcamento, double valorPlanejado, double valorUtilizado, LocalDate dataInicio, LocalDate dataFim, Conta conta) {
+    public Orcamento(Long idOrcamento, String nomeOrcamento, String tipoOrcamento, double valorOrcamento, LocalDate dataInicio, LocalDate dataFim, Conta conta) {
         this.idOrcamento = idOrcamento;
+        this.nomeOrcamento = nomeOrcamento;
         this.tipoOrcamento = tipoOrcamento;
-        this.valorPlanejado = valorPlanejado;
-        this.valorUtilizado = valorUtilizado;
+        this.valorOrcamento = valorOrcamento;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.conta = conta;
     }
 
-    public Orcamento(String tipoOrcamento, double valorPlanejado, double valorUtilizado, LocalDate dataInicio, LocalDate dataFim, Conta conta) {
+    public Orcamento(String nomeOrcamento, String tipoOrcamento, double valorOrcamento, LocalDate dataInicio, LocalDate dataFim, Conta conta) {
+        this.nomeOrcamento = nomeOrcamento;
         this.tipoOrcamento = tipoOrcamento;
-        this.valorPlanejado = valorPlanejado;
-        this.valorUtilizado = valorUtilizado;
+        this.valorOrcamento = valorOrcamento;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.conta = conta;
@@ -69,6 +69,14 @@ public class Orcamento {
         this.idOrcamento = idOrcamento;
     }
 
+    public String getNomeOrcamento() {
+        return nomeOrcamento;
+    }
+
+    public void setNomeOrcamento(String nomeOrcamento) {
+        this.nomeOrcamento = nomeOrcamento;
+    }
+
     public String getTipoOrcamento() {
         return tipoOrcamento;
     }
@@ -77,20 +85,12 @@ public class Orcamento {
         this.tipoOrcamento = tipoOrcamento;
     }
 
-    public double getValorPlanejado() {
-        return valorPlanejado;
+    public double getValorOrcamento() {
+        return valorOrcamento;
     }
 
-    public void setValorPlanejado(double valorPlanejado) {
-        this.valorPlanejado = valorPlanejado;
-    }
-
-    public double getValorUtilizado() {
-        return valorUtilizado;
-    }
-
-    public void setValorUtilizado(double valorUtilizado) {
-        this.valorUtilizado = valorUtilizado;
+    public void setValorOrcamento(double valorOrcamento) {
+        this.valorOrcamento = valorOrcamento;
     }
 
     public LocalDate getDataInicio() {

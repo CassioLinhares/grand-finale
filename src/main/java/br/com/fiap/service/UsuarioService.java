@@ -11,8 +11,8 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
-    private UsuarioRepository usuarioRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
