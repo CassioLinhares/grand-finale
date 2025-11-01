@@ -3,10 +3,12 @@ package br.com.fiap.service;
 import br.com.fiap.model.Receita;
 import br.com.fiap.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ReceitaService {
     @Autowired
     private ReceitaRepository receitaRepository;
