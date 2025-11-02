@@ -55,7 +55,7 @@ public class ReceitaService {
         }
     }
 
-    public Receita buscarPorId(Receita receita, Long id){
+    public Receita buscarPorId(Long id){
         Optional<Receita> receitaOptional = receitaRepository.findById(id);
         if (receitaOptional.isPresent()){
             return receitaOptional.get();
@@ -68,7 +68,7 @@ public class ReceitaService {
         return receitaRepository.findAll();
     }
 
-    public void excluirReceita(Receita receita, Long id){
+    public void excluirReceita(Long id){
         Optional<Receita> receitaOptional = receitaRepository.findById(id);
         if (receitaOptional.isPresent()){
             receitaRepository.deleteById(id);
