@@ -17,22 +17,23 @@ public class Conta {
             sequenceName = "SEQ_CONTA",
             allocationSize = 1
     )
+    @Column(name = "id_conta")
     private Long idConta;
 
     @Column(name = "numero_conta")
-    private int numeroConta;
+    private String numeroConta;
 
     @Column(name = "tipo_conta")
     private String tipoConta;
 
-    private double saldo;
+    private double saldo = 0.0;
     private String banco;
-    private int agencia;
+    private String agencia;
 
     @Column(name = "data_abertura")
     private LocalDate dataAbertura;
 
-    private String status;
+    private String status = "Ativa";
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
@@ -40,9 +41,7 @@ public class Conta {
 
     public Conta() {}
 
-    public Conta(Long idConta, int numeroConta, String tipoConta,
-                 String banco, int agencia, double saldo,
-                 LocalDate dataAbertura, String status, Usuario usuario) {
+    public Conta(Long idConta, String numeroConta, String tipoConta, String banco, String agencia, double saldo, LocalDate dataAbertura, String status, Usuario usuario) {
         this.idConta = idConta;
         this.numeroConta = numeroConta;
         this.tipoConta = tipoConta;
@@ -54,41 +53,12 @@ public class Conta {
         this.usuario = usuario;
     }
 
-    public Conta(int numeroConta, String tipoConta, String banco,
-                 int agencia,  double saldo, Usuario usuario) {
+    public Conta(String numeroConta, String tipoConta, String banco, String agencia, Usuario usuario) {
         this.numeroConta = numeroConta;
         this.tipoConta = tipoConta;
         this.banco = banco;
         this.agencia = agencia;
-        this.saldo = 0.0;
-        this.status = "Ativa";
         this.usuario = usuario;
-    }
-
-
-    public void criarConta() {
-        System.out.println("Criando conta do tipo: " + tipoConta + " no banco: " + banco);
-    }
-
-    public void consultarSaldo() {
-        System.out.println("Consultando saldo da conta " + numeroConta + ": R$ " + saldo);
-    }
-
-    public void atualizarSaldo() {
-        System.out.println("Atualizando saldo da conta: " + numeroConta);
-    }
-
-    public void bloquearConta() {
-        this.status = "Bloqueada";
-        System.out.println("Bloqueando conta: " + numeroConta);
-    }
-
-    public void vincularUsuario() {
-        System.out.println("Vinculando usuário à conta: " + numeroConta);
-    }
-
-    public void gerarExtrato() {
-        System.out.println("Gerando extrato da conta: " + numeroConta);
     }
 
     public Long getIdConta() {
@@ -99,11 +69,11 @@ public class Conta {
         this.idConta = idConta;
     }
 
-    public int getNumeroConta() {
+    public String getNumeroConta() {
         return numeroConta;
     }
 
-    public void setNumeroConta(int numeroConta) {
+    public void setNumeroConta(String numeroConta) {
         this.numeroConta = numeroConta;
     }
 
@@ -131,11 +101,11 @@ public class Conta {
         this.banco = banco;
     }
 
-    public int getAgencia() {
+    public String getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(int agencia) {
+    public void setAgencia(String agencia) {
         this.agencia = agencia;
     }
 
@@ -174,7 +144,6 @@ public class Conta {
                 ", agencia='" + agencia + '\'' +
                 ", dataAbertura=" + dataAbertura +
                 ", status='" + status + '\'' +
-                ", usuario=" + usuario +
                 '}';
     }
 }
