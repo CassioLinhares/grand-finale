@@ -53,7 +53,7 @@ public class MetaFinanceiraService {
             if (metaFinanceiraRepository.findByNameMetaFinanceiraAndConta_IdConta(novoNome, idConta).isPresent()){
                 throw new RuntimeException("Nome da Meta financeira já esta em uso!");
             }
-            metaFinanceiraAtual.setNomeMetaFinanceira(metaFinanceira.getNomeMetaFinanceira());
+            metaFinanceiraAtual.setNomeMetaFinanceira(novoNome);
         }
         if (metaFinanceira.getValorObjetivo() <= 0.0) {
             throw new RuntimeException("O valor objetivo da meta financeira precisa ser acima de zero!");
