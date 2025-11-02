@@ -17,12 +17,11 @@ public class MetaFinanceira {
             sequenceName = "SEQ_META_FINANCEIRA",
             allocationSize = 1
     )
-
     @Column(name = "id_meta_financeira")
     private Long idMetaFinanceira;
 
     @Column(name = "nome_meta_financeira")
-    private String NomeMetaFinanceira;
+    private String nomeMetaFinanceira;
 
     @Column(name = "tipo_meta_financeira")
     private String tipoMetaFinanceira;
@@ -50,7 +49,7 @@ public class MetaFinanceira {
 
     public MetaFinanceira(Long idMetaFinanceira, String nomeMetaFinanceira, String tipoMetaFinanceira, String descricao, double valorObjetivo, double valorAtual, LocalDate dataCriacao, LocalDate dataConclusao, Conta conta) {
         this.idMetaFinanceira = idMetaFinanceira;
-        NomeMetaFinanceira = nomeMetaFinanceira;
+        this.nomeMetaFinanceira = nomeMetaFinanceira;
         this.tipoMetaFinanceira = tipoMetaFinanceira;
         this.descricao = descricao;
         this.valorObjetivo = valorObjetivo;
@@ -61,7 +60,7 @@ public class MetaFinanceira {
     }
 
     public MetaFinanceira(String nomeMetaFinanceira, String tipoMetaFinanceira, String descricao, double valorObjetivo, double valorAtual, LocalDate dataCriacao, LocalDate dataConclusao, Conta conta) {
-        NomeMetaFinanceira = nomeMetaFinanceira;
+        this.nomeMetaFinanceira = nomeMetaFinanceira;
         this.tipoMetaFinanceira = tipoMetaFinanceira;
         this.descricao = descricao;
         this.valorObjetivo = valorObjetivo;
@@ -80,11 +79,11 @@ public class MetaFinanceira {
     }
 
     public String getNomeMetaFinanceira() {
-        return NomeMetaFinanceira;
+        return nomeMetaFinanceira;
     }
 
     public void setNomeMetaFinanceira(String nomeMetaFinanceira) {
-        NomeMetaFinanceira = nomeMetaFinanceira;
+        this.nomeMetaFinanceira = nomeMetaFinanceira;
     }
 
     public String getTipoMetaFinanceira() {

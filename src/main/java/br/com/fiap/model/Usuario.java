@@ -20,58 +20,70 @@ public class Usuario {
             sequenceName = "SEQ_USUARIO",
             allocationSize = 1
     )
-    private Long id_usuario;
+    @Column(name = "id_usuario")
+    private Long idUsuario;
+
     private String nome;
-    private LocalDate data_nasc;
+
+    @Column(name = "data_nasc")
+    private LocalDate dataNasc;
+
     private String genero;
-    private int telefone;
+
+    private String telefone;
 
     @Column(unique = true)
     @Email
     @NotBlank
     private String email;
-    private String perfil_financeiro;
+
+    @Column(name = "perfil_financeiro")
+    private String perfilFinanceiro;
+
     private String status;
-    private LocalDate data_ultimo_login;
+
+    @Column(name = "data_ultimo_login")
+    private LocalDate dataUltimoLogin;
+
     private String senha;
 
     public Usuario() {}
 
-    public Usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
+    public Usuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public Usuario(Long id_usuario, String nome, LocalDate data_nasc, String genero, int telefone, String email, String perfil_financeiro, String status, LocalDate data_ultimo_login, String senha) {
-        this.id_usuario = id_usuario;
+    public Usuario(Long idUsuario, String nome, LocalDate dataNasc, String genero, String telefone, String email, String perfilFinanceiro, String status, LocalDate dataUltimoLogin, String senha) {
+        this.idUsuario = idUsuario;
         this.nome = nome;
-        this.data_nasc = data_nasc;
+        this.dataNasc = dataNasc;
         this.genero = genero;
         this.telefone = telefone;
         this.email = email;
-        this.perfil_financeiro = perfil_financeiro;
+        this.perfilFinanceiro = perfilFinanceiro;
         this.status = status;
-        this.data_ultimo_login = data_ultimo_login;
+        this.dataUltimoLogin = dataUltimoLogin;
         this.senha = senha;
     }
 
-    public Usuario(String nome, LocalDate data_nasc, String genero, int telefone, String email, String perfil_financeiro, String status, LocalDate data_ultimo_login, String senha) {
+    public Usuario(String nome, LocalDate dataNasc, String genero, String telefone, String email, String perfilFinanceiro, String status, LocalDate dataUltimoLogin, String senha) {
         this.nome = nome;
-        this.data_nasc = data_nasc;
+        this.dataNasc = dataNasc;
         this.genero = genero;
         this.telefone = telefone;
         this.email = email;
-        this.perfil_financeiro = perfil_financeiro;
+        this.perfilFinanceiro = perfilFinanceiro;
         this.status = status;
-        this.data_ultimo_login = data_ultimo_login;
+        this.dataUltimoLogin = dataUltimoLogin;
         this.senha = senha;
     }
 
-    public Long getId_usuario() {
-        return id_usuario;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNome() {
@@ -82,12 +94,12 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public LocalDate getData_nasc() {
-        return data_nasc;
+    public LocalDate getDataNasc() {
+        return dataNasc;
     }
 
-    public void setData_nasc(LocalDate data_nasc) {
-        this.data_nasc = data_nasc;
+    public void setDataNasc(LocalDate dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
     public String getGenero() {
@@ -98,11 +110,11 @@ public class Usuario {
         this.genero = genero;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -114,12 +126,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getPerfil_financeiro() {
-        return perfil_financeiro;
+    public String getPerfilFinanceiro() {
+        return perfilFinanceiro;
     }
 
-    public void setPerfil_financeiro(String perfil_financeiro) {
-        this.perfil_financeiro = perfil_financeiro;
+    public void setPerfilFinanceiro(String perfilFinanceiro) {
+        this.perfilFinanceiro = perfilFinanceiro;
     }
 
     public String getStatus() {
@@ -130,12 +142,12 @@ public class Usuario {
         this.status = status;
     }
 
-    public LocalDate getData_ultimo_login() {
-        return data_ultimo_login;
+    public LocalDate getDataUltimoLogin() {
+        return dataUltimoLogin;
     }
 
-    public void setData_ultimo_login(LocalDate data_ultimo_login) {
-        this.data_ultimo_login = data_ultimo_login;
+    public void setDataUltimoLogin(LocalDate dataUltimoLogin) {
+        this.dataUltimoLogin = dataUltimoLogin;
     }
 
     public String getSenha() {
@@ -146,6 +158,3 @@ public class Usuario {
         this.senha = senha;
     }
 }
-
-
-

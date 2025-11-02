@@ -1,5 +1,6 @@
 package br.com.fiap.service;
 
+import br.com.fiap.model.Orcamento;
 import br.com.fiap.model.Usuario;
 import br.com.fiap.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,14 @@ public class UsuarioService {
     }
 
     public Usuario cadastrar(Usuario usuario) {
+        if (usuario.getEmail() == null || usuario.getEmail().trim().isEmpty()) {
+            throw new RuntimeException("O email é obrigatório!");
+        }
+
+        if (usuario.getSenha() == null || usuario.getSenha().trim().isEmpty()) {
+            throw new RuntimeException("A senha é obrigatória!");
+        }
+
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
 
         if (usuarioExistente.isPresent()) {
@@ -32,57 +41,71 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario atualizar(Usuario usuario, Long id){
+    public Usuario atualizar(Long id, Usuario usuario) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+
+        if (!usuarioOptional.isPresent()) {
+            throw new RuntimeException("Usuário não encontrado!");
+        }
+
+        Usuario usuarioAtual = usuarioOptional.get();
+
+        String novoEmail = usuario.getEmail();
+        String emailAtual = usuarioAtual.getEmail();
+
+        if (novoEmail != null && !novoEmail.equals(emailAtual)) {
+            if (usuarioRepository.findByEmail(novoEmail).isPresent()) {
+                throw new RuntimeException("Email já está em uso por outro usuário!");
+            }
+            usuarioAtual.setEmail(novoEmail);
+        }
+
+        String novaSenha = usuario.getSenha();
+        if (novaSenha != null && !novaSenha.trim().isEmpty()) {
+            String senhaCriptografada = passwordEncoder.encode(novaSenha);
+            usuarioAtual.setSenha(senhaCriptografada);
+        }
+
+        if (usuario.getNome() != null) {
+            usuarioAtual.setNome(usuario.getNome());
+        }
+
+        if (usuario.getGenero() != null) {
+            usuarioAtual.setGenero(usuario.getGenero());
+        }
+
+        if (usuario.getTelefone() != null) {
+            usuarioAtual.setTelefone(usuario.getTelefone());
+        }
+
+        if (usuario.getDataNasc() != null) {
+            usuarioAtual.setDataNasc(usuario.getDataNasc());
+        }
+
+        if (usuario.getPerfilFinanceiro() != null) {
+            usuarioAtual.setPerfilFinanceiro(usuario.getPerfilFinanceiro());
+        }
+
+        return usuarioRepository.save(usuarioAtual);
+    }
+
+    public Usuario buscarPorId(Long id) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
         if (usuarioOptional.isPresent()){
-            Usuario usuarioAtual = usuarioOptional.get();
-
-            String novoEmail = usuario.getEmail();
-            String emailAtual = usuarioAtual.getEmail();
-            if (novoEmail != null && !novoEmail.equals(emailAtual)){
-                if (usuarioRepository.findByEmail(novoEmail).isPresent()){
-                    throw new RuntimeException("Email já esta em uso por outro usuário!");
-                }
-                usuarioAtual.setEmail(usuario.getEmail());
-            }
-
-            String novaSenha = usuario.getSenha();
-            if (novaSenha != null && !novaSenha.isEmpty()){
-                String senhaCriptografada = passwordEncoder.encode(novaSenha);
-                usuarioAtual.setSenha(senhaCriptografada);
-            }
-
-            usuarioAtual.setNome(usuario.getNome());
-            usuarioAtual.setGenero(usuario.getGenero());
-            usuarioAtual.setTelefone(usuario.getTelefone());
-            usuarioAtual.setData_nasc(usuario.getData_nasc());
-            usuarioAtual.setPerfil_financeiro(usuario.getPerfil_financeiro());
-            return usuarioRepository.save(usuarioAtual);
+            return usuarioOptional.get();
         } else {
-            throw new RuntimeException("Usuário não encontrado");
+            throw new RuntimeException("Orçamento não encontrado!");
         }
     }
 
-    public Usuario buscarPorId(Long id){
-        Optional<Usuario> usuarioCadastrado = usuarioRepository.findById(id);
-        if (usuarioCadastrado.isPresent()){
-            return usuarioCadastrado.get();
-        } else {
-            throw new RuntimeException("Usuárionão encontrado!");
-        }
-    }
-
-    public List<Usuario> buscarTodosUsuario(){
+    public List<Usuario> buscarTodosUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    public void excluirUsuario(Long id){
-        Optional<Usuario> usuarioExcluido = usuarioRepository.findById(id);
-        if (usuarioExcluido.isPresent()){
-            usuarioRepository.deleteById(id);
-        } else {
+    public void excluirUsuario(Long id) {
+        if (!usuarioRepository.existsById(id)) {
             throw new RuntimeException("Usuário não encontrado!");
         }
+        usuarioRepository.deleteById(id);
     }
-
 }

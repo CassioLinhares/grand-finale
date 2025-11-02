@@ -14,6 +14,10 @@ public class ReceitaService {
     private ReceitaRepository receitaRepository;
 
     public Receita cadastrar(Receita receita){
+        if (receita.getConta() == null) {
+            throw new RuntimeException("A conta é obrigatória!");
+        }
+
         if (receita.getValorReceita() > 0.0){
             return receitaRepository.save(receita);
         } else {
@@ -26,12 +30,26 @@ public class ReceitaService {
         if (receitaOptional.isPresent()){
             Receita receitaAtual = receitaOptional.get();
 
-            receitaAtual.setTipoReceita(receita.getTipoReceita());
-            receitaAtual.setDescricao(receita.getDescricao());
-            receitaAtual.setDataEmissao(receita.getDataEmissao());
+            if (receita.getValorReceita() <= 0) {
+                throw new RuntimeException("A receita precisa ter valor positivo!");
+            }
+
             receitaAtual.setValorReceita(receita.getValorReceita());
 
+            if (receita.getTipoReceita() != null) {
+                receitaAtual.setTipoReceita(receita.getTipoReceita());
+            }
+
+            if (receita.getDescricao() != null) {
+                receitaAtual.setDescricao(receita.getDescricao());
+            }
+
+            if (receita.getDataEmissao() != null) {
+                receitaAtual.setDataEmissao(receita.getDataEmissao());
+            }
+
             return receitaRepository.save(receitaAtual);
+
         } else {
             throw new RuntimeException("Receita não encontrada!");
         }
