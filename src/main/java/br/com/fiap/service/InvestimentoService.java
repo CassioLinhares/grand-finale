@@ -36,16 +36,19 @@ public class InvestimentoService {
             throw new RuntimeException("O valor atual do investimento não pode ser negativo!");
         }
 
-        if (investimento.getNomeInstituicao() != null) {
+        if (investimento.getTipoInvestimento() == null || investimento.getTipoInvestimento().trim().isEmpty()) {
+            throw new RuntimeException("O tipo de investimento é obrigatório!");
+        }
+
+        if (investimento.getNomeInstituicao() == null || investimento.getNomeInstituicao().trim().isEmpty()) {
             throw new RuntimeException("O nome da instituição é obrigatório!");
         }
 
-        if (investimento.getDataAplicacao() != null) {
-            throw new RuntimeException("A data da aplicação é obrigatório!");
+        if (investimento.getDataAplicacao() == null) {
+            throw new RuntimeException("A data da aplicação é obrigatória!");
         }
 
         return investimentoRepository.save(investimento);
-
     }
 
     public Investimento atualizar(Investimento investimento, Long id) {
@@ -100,18 +103,18 @@ public class InvestimentoService {
         return investimentoRepository.findAll();
     }
 
-    public Investimento buscarPorId(Long id){
+    public Investimento buscarPorId(Long id) {
         Optional<Investimento> investimentoOptional = investimentoRepository.findById(id);
-        if (investimentoOptional.isPresent()){
+        if (investimentoOptional.isPresent()) {
             return investimentoOptional.get();
-        }else {
+        } else {
             throw new RuntimeException("Investimento não encontrado!");
         }
     }
 
-    public void excluir(Long id){
+    public void excluir(Long id) {
         Optional<Investimento> investimentoOptional = investimentoRepository.findById(id);
-        if (investimentoOptional.isPresent()){
+        if (investimentoOptional.isPresent()) {
             investimentoRepository.deleteById(id);
         } else {
             throw new RuntimeException("Investimento não encontrado, não foi possível excluir!");
